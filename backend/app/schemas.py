@@ -3,10 +3,12 @@ from typing import List, Optional
 from pydantic import BaseModel, Field, field_validator
 import re
 
+
 class AnalysisRequest(BaseModel):
     """
     Schema for initiating a new repository analysis.
     """
+
     repo_url: str = Field(..., description="The HTTPS URL of the public GitHub repository.")
 
     @field_validator("repo_url")
@@ -23,10 +25,12 @@ class AnalysisRequest(BaseModel):
             raise ValueError("Must be a valid public GitHub repository URL (e.g., https://github.com/owner/repo)")
         return value
 
+
 class SuggestionRead(BaseModel):
     """
     Schema representing a suggestion in an API response.
     """
+
     id: int
     analysis_id: int
     file_path: str
@@ -41,10 +45,12 @@ class SuggestionRead(BaseModel):
 
     model_config = {"from_attributes": True}
 
+
 class AnalysisRead(BaseModel):
     """
     Schema representing a summary of an analysis in list responses.
     """
+
     id: int
     repo_url: str
     repo_name: str
@@ -54,10 +60,12 @@ class AnalysisRead(BaseModel):
 
     model_config = {"from_attributes": True}
 
+
 class AnalysisDetailRead(AnalysisRead):
     """
     Detailed schema representing an analysis, including all AI suggestions.
     """
+
     suggestions: List[SuggestionRead] = []
 
     model_config = {"from_attributes": True}

@@ -9,11 +9,13 @@ if settings.database_url.startswith("sqlite"):
 # Create SQLModel engine
 engine = create_engine(settings.database_url, connect_args=connect_args, echo=False)
 
+
 def init_db():
     """
     Initializes the database tables based on our SQLModel declarations.
     """
     SQLModel.metadata.create_all(engine)
+
 
 def get_db():
     """
